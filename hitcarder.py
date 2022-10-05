@@ -200,7 +200,7 @@ def main(username, password):
         return 1, '获取信息失败，请手动打卡: ' + str(err)
 
     try:
-        hit_carder.get_info()
+        info = hit_carder.get_info()
     except Exception as err:
         return 1, '获取信息失败，请手动打卡: ' + str(err)
 
@@ -208,13 +208,13 @@ def main(username, password):
         res = hit_carder.post()
         print(res)
         if str(res['e']) == '0':
-            return 0, '打卡成功'
+            return 0, '打卡成功, ' + str(info)
         elif str(res['m']) == '今天已经填报了':
-            return 0, '今天已经打卡'
+            return 0, '今天已经打卡, ' + str(info)
         else:
-            return 1, '打卡失败'
+            return 1, '打卡失败, ' + str(info)
     except:
-        return 1, '打卡数据提交失败'
+        return 1, '打卡数据提交失败, ' + str(info)
 
 
 if __name__ == "__main__":
